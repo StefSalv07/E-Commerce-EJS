@@ -11,6 +11,11 @@ cloudinary.config({
 // saving user to database
 exports.registerUser = async (req, res) => {
   const file = req.files.profilePic;
+  console.log("request body", req.body);
+  const existingUser = await userModel.findOne({ email: req.body.email });
+  if (existingUser) {
+    return res.status(400).json({ message: "User already exists" });
+  }
   console.log("file from the request", file);
   const user = new userModel(req.body);
   await cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
@@ -18,12 +23,6 @@ exports.registerUser = async (req, res) => {
     user.profilePic = result.url;
     console.log("profile Pic", user.profilePic);
   });
-
-  console.log("request body", req.body);
-  const existingUser = await userModel.findOne({ email: req.body.email });
-  if (existingUser) {
-    return res.status(400).json({ message: "User already exists" });
-  }
 
   await user
     .save()

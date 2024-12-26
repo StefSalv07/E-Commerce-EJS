@@ -9,6 +9,7 @@ exports.dbConnection = async () => {
       console.log(
         "!!!!!==========================Database connected==================================!!!!!"
       );
+      mongoose.set("debug", true);
     })
     .catch((error) => {
       console.log("Error in connecting");

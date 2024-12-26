@@ -19,9 +19,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 dbConnection();
-// routes
+// routes for apis
+// app.all("/api");
 const userRoutes = require("./routes/userRoutes");
+const roleRoutes = require("./routes/roleRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/user", userRoutes);
+app.use("/api/role", roleRoutes);
+app.use("/api/admin", adminRoutes);
 // rendering to the front end
 app.get("/", (req, res) => {
   res.render("index", { baseUrl: "" });
