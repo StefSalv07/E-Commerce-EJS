@@ -1,21 +1,14 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
+const errorMessages = require("../constants/errorMessages");
+const STATUS = require("../constants/status");
 const productSchema = new schema(
   {
-    categoryId: {
-      type: schema.Types.ObjectId,
-      ref: "category",
-    },
-    supplierId: {
-      type: schema.Types.ObjectId,
-      ref: "supplier",
-    },
-    description: {
+    productName: {
       type: String,
     },
-    brandId: {
-      type: schema.Types.ObjectId,
-      ref: "brands",
+    productDesc: {
+      type: String,
     },
     price: {
       type: Number,
@@ -23,13 +16,49 @@ const productSchema = new schema(
     ratings: {
       type: Number,
     },
-    status: {
+    categoryId: {
       type: schema.Types.ObjectId,
-      ref: "status",
+      ref: "category",
     },
-    productImageId: {
+    brandId: {
       type: schema.Types.ObjectId,
-      ref: "image",
+      ref: "brands",
+    },
+    userId: {
+      type: schema.Types.ObjectId,
+      ref: "user",
+    },
+    productImage: {
+      type: "String",
+    },
+    stockQuantity: {
+      type: Number,
+      default: 0,
+    },
+    discountPrice: {
+      type: Number,
+    },
+    variants: [
+      {
+        color: String,
+        size: String,
+        additionalPrice: Number,
+        stockQuantity: Number,
+      },
+    ],
+    reviews: [
+      {
+        userId: {
+          type: schema.Types.ObjectId,
+          ref: "user",
+        },
+        review: String,
+        ratings: Number,
+      },
+    ],
+    status: {
+      type: String,
+      default: STATUS.ACTIVE,
     },
   },
   {

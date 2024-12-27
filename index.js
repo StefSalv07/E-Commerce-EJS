@@ -18,6 +18,7 @@ app.use(
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+
 dbConnection();
 // routes for apis
 // app.all("/api");
@@ -27,6 +28,7 @@ const roleRoutes = require("./routes/roleRoutes");
 const statusRoutes = require("./routes/statusRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const subcategoryRoutes = require("./routes/subCategoryRoutes");
+const brandRoutes = require("./routes/brandRoutes");
 // const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/user", userRoutes);
 app.use("/api/role", roleRoutes);
@@ -34,6 +36,7 @@ app.use("/api/status", statusRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/sub-category", subcategoryRoutes);
+app.use("/api/brand", brandRoutes);
 // app.use("/api/admin", adminRoutes);
 // rendering to the front end
 app.get("/", (req, res) => {
