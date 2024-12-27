@@ -6,7 +6,7 @@ const categorySchema = new schema(
       type: String,
       required: true,
     },
-    statusId: {
+    status: {
       type: schema.Types.ObjectId,
       ref: "status",
     },

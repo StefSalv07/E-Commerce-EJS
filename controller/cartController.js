@@ -1,23 +1,42 @@
 const cartSchema = require("../../model/shared/cartModel");
 
 exports.addCart = (req, res) => {
-  console.log("....", req.body);
-  const carts = new cartSchema(req.body);
+  // First check if product already exists in user's cart
+  cartSchema
+    .findOne({
+      userId: req.body.userId,
+      productId: req.body.productId,
+    })
+    .then((existingCart) => {
+      if (existingCart) {
+        res.status(400).json({
+          message: "This product is already in your cart",
+          existingItem: existingCart,
+        });
+        throw new Error("CART_EXISTS");
+      }
 
-  carts
-    .save()
+      const carts = new cartSchema(req.body);
+      return carts.save();
+    })
     .then((data) => {
-      console.log(data);
-      res.status(200).json({
-        message: "Cart Added Successfully",
-        data: data,
-      });
+      if (data && !res.headersSent) {
+        res.status(201).json({
+          message: "Cart Added Successfully",
+          data: JSON.parse(JSON.stringify(data)),
+        });
+      }
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Something went wrong",
-        error: err.message,
-      });
+      if (!res.headersSent) {
+        if (err.message === "CART_EXISTS") {
+          return;
+        }
+        res.status(500).json({
+          message: "Something went wrong",
+          error: err.message,
+        });
+      }
     });
 };
 

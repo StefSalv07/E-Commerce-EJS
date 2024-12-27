@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const roleSchema = new Schema(
+const schema = mongoose.Schema;
+const roleSchema = new schema(
   {
     roleName: {
       type: String,
@@ -8,6 +8,10 @@ const roleSchema = new Schema(
     },
     roleDesc: {
       type: String,
+    },
+    status: {
+      type: schema.Types.ObjectId,
+      ref: "status",
     },
   },
   {

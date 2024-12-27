@@ -1,11 +1,13 @@
 const statusmodel = require("../model/statusModel");
 exports.addStatus = (req, res) => {
   // First check if a status with same name/type exists
+  console.log("statusName", req.body.statusName);
   statusmodel
     .findOne({
       // Assuming status has a name or type field - adjust according to your schema
-      $or: [{ name: req.body.name }, { type: req.body.type }],
+      $or: [{ statusName: req.body.statusName }],
     })
+
     .then((existingStatus) => {
       if (existingStatus) {
         res.status(400).json({

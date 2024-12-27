@@ -74,7 +74,6 @@ exports.login = async (req, res) => {
     data: user,
   });
 };
-
 exports.logout = async (req, res) => {};
 exports.getUsers = async (req, res) => {};
 exports.getUserById = async (req, res) => {};

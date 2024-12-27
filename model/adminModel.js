@@ -27,7 +27,8 @@ const AdminSchema = new schema(
       ref: "role",
     },
     status: {
-      type: String,
+      type: schema.Types.ObjectId,
+      ref: "status",
     },
   },
   {

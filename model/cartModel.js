@@ -16,9 +16,9 @@ const cartSchema = new schema(
         ref: "product",
       },
     ],
-    statusId: {
+    status: {
       type: schema.Types.ObjectId,
-      ref: "statuses",
+      ref: "status",
     },
     qty: {
       type: Number,

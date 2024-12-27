@@ -29,9 +29,21 @@ const userSchema = new schema(
     phone: {
       type: Number,
     },
+    address: {
+      type: schema.Types.ObjectId,
+      ref: "address",
+    },
     status: {
-      type: String,
-      default: "active",
+      type: schema.Types.ObjectId,
+      ref: "status",
+    },
+    order: {
+      type: schema.Types.ObjectId,
+      ref: "order",
+    },
+    cart: {
+      type: schema.Types.ObjectId,
+      ref: "cart",
     },
   },
   {

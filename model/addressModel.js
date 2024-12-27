@@ -6,9 +6,9 @@ const addressSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
-    statusId: {
+    status: {
       type: Schema.Types.ObjectId,
-      ref: "statuses",
+      ref: "status",
     },
     area: {
       type: String,

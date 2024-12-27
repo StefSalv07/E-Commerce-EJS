@@ -1,21 +1,43 @@
 const categorySchema = require("../model/categoryModel");
 
 exports.addCategory = (req, res) => {
-  const categories = new categorySchema(req.body);
-  categories
-    .save()
-    .then((data) => {
-      res.status(201).json({
-        message: "Category Added",
-        data: data,
-      });
+  const { categoryName } = req.body;
+
+  // Check if the category already exists
+  categorySchema
+    .findOne({ categoryName })
+    .then((existingCategory) => {
+      if (existingCategory) {
+        // Ensure only one response is sent
+        res.status(200).json({
+          message: "Category already exists",
+          data: existingCategory,
+        });
+        return null; // Exit further promise chaining
+      }
+
+      // If category doesn't exist, create a new one
+      const categories = new categorySchema(req.body);
+      return categories.save();
+    })
+    .then((savedCategory) => {
+      if (savedCategory) {
+        res.status(201).json({
+          message: "Category Added",
+          data: savedCategory,
+        });
+      }
     })
     .catch((err) => {
+      // Handle errors centrally
       console.error(err);
-      res.status(500).json({
-        message: "Error adding category",
-        error: err.message,
-      });
+      if (!res.headersSent) {
+        // Prevent duplicate response
+        res.status(500).json({
+          message: "Error processing request",
+          error: err.message,
+        });
+      }
     });
 };
 

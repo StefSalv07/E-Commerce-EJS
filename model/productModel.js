@@ -23,7 +23,7 @@ const productSchema = new schema(
     ratings: {
       type: Number,
     },
-    statusId: {
+    status: {
       type: schema.Types.ObjectId,
       ref: "status",
     },

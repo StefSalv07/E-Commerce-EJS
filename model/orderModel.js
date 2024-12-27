@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const orderModel = new mongoose.Schema(
+const schema = mongoose.Schema;
+const orderModel = new schema(
   {
     userId: {
-      type: Schema.Types.ObjectId,
+      type: schema.Types.ObjectId,
       ref: "user",
       required: true,
     },
     cartId: {
-      type: Schema.Types.ObjectId,
+      type: schema.Types.ObjectId,
       ref: "cart",
       required: true,
     },
@@ -38,11 +38,16 @@ const orderModel = new mongoose.Schema(
     },
     addressId: [
       {
-        type: Schema.Types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: "address",
         required: true,
       },
     ],
+    status: {
+      type: schema.Types.ObjectId,
+      ref: "status",
+      required: true,
+    },
   },
   {
     timestamps: true,

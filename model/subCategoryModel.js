@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const subCategorySchema = Schema(
+const schema = mongoose.Schema;
+const subCategorySchema = new schema(
   {
     categoryId: {
-      type: Schema.Types.ObjectId,
+      type: schema.Types.ObjectId,
       ref: "category",
     },
-    statusId: {
-      type: Schema.Types.ObjectId,
+    status: {
+      type: schema.Types.ObjectId,
       ref: "status",
     },
     subCategoryName: {

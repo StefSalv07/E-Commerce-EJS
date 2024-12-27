@@ -25,11 +25,15 @@ const addressRoutes = require("./routes/addressRoutes");
 const userRoutes = require("./routes/userRoutes");
 const roleRoutes = require("./routes/roleRoutes");
 const statusRoutes = require("./routes/statusRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const subcategoryRoutes = require("./routes/subCategoryRoutes");
 // const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/user", userRoutes);
 app.use("/api/role", roleRoutes);
-app.use("/api/status",statusRoutes)
+app.use("/api/status", statusRoutes);
 app.use("/api/address", addressRoutes);
+app.use("/api/category", categoryRoutes);
+app.use("/api/sub-category", subcategoryRoutes);
 // app.use("/api/admin", adminRoutes);
 // rendering to the front end
 app.get("/", (req, res) => {
