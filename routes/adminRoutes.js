@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
-// const AdminValidation = require("../../util/admin/AdminValidationUtil");
-// const validate = require("../../middleware/zodMiddleware");
-const AdminController = require("../controller/adminController");
-// const tokenMiddleware = require("../../middleware/tokenMiddleware");
+// const express = require("express");
+// const router = express.Router();
+// // const AdminValidation = require("../../util/admin/AdminValidationUtil");
+// // const validate = require("../../middleware/zodMiddleware");
+// const AdminController = require("../controller/adminController");
+// // const tokenMiddleware = require("../../middleware/tokenMiddleware");
 
-router.post("/add-admin", AdminController.addAdmin);
+// router.post("/add-admin", AdminController.addAdmin);
 // router.get(
 //   "/admin",
 //   tokenMiddleware.tokenMiddleware,
@@ -30,4 +30,4 @@ router.post("/add-admin", AdminController.addAdmin);
 // router.post("/adm/forgetPassword", AdminController.forgetPassword);
 // router.post("/admC/changepassword", AdminController.ChangePassword);
 
-module.exports = router;
+// module.exports = router;

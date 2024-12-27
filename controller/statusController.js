@@ -1,20 +1,48 @@
 const statusmodel = require("../model/statusModel");
 exports.addStatus = (req, res) => {
-  const statuses = new statusmodel(req.body);
-  statuses
-    .save()
+  // First check if a status with same name/type exists
+  statusmodel
+    .findOne({
+      // Assuming status has a name or type field - adjust according to your schema
+      $or: [{ name: req.body.name }, { type: req.body.type }],
+    })
+    .then((existingStatus) => {
+      if (existingStatus) {
+        res.status(400).json({
+          message: "Status already exists",
+          existingStatus: {
+            id: existingStatus._id,
+            name: existingStatus.name,
+            type: existingStatus.type,
+          },
+        });
+        throw new Error("STATUS_EXISTS");
+      }
+
+      // If no existing status found, create new status
+      const statuses = new statusmodel(req.body);
+      return statuses.save();
+    })
     .then((data) => {
-      res.status(201).json({
-        message: "Status Added",
-        data: data,
-      });
+      if (data && !res.headersSent) {
+        res.status(201).json({
+          message: "Status Added Successfully",
+          data: JSON.parse(JSON.stringify(data)), // Sanitize mongoose document
+        });
+      }
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).json({
-        message: "Error adding status",
-        error: err.message,
-      });
+      if (!res.headersSent) {
+        console.error(err);
+        // Don't send error response for our custom STATUS_EXISTS error
+        if (err.message === "STATUS_EXISTS") {
+          return;
+        }
+        res.status(500).json({
+          message: "Error processing status request",
+          error: err.message,
+        });
+      }
     });
 };
 

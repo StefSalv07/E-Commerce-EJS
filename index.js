@@ -21,12 +21,16 @@ app.set("view engine", "ejs");
 dbConnection();
 // routes for apis
 // app.all("/api");
+const addressRoutes = require("./routes/addressRoutes");
 const userRoutes = require("./routes/userRoutes");
 const roleRoutes = require("./routes/roleRoutes");
-const adminRoutes = require("./routes/adminRoutes");
+const statusRoutes = require("./routes/statusRoutes");
+// const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/user", userRoutes);
 app.use("/api/role", roleRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api/status",statusRoutes)
+app.use("/api/address", addressRoutes);
+// app.use("/api/admin", adminRoutes);
 // rendering to the front end
 app.get("/", (req, res) => {
   res.render("index", { baseUrl: "" });

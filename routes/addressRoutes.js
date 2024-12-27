@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const addressController = require("../controller/addressController");
+router.post("/add-address", addressController.addAddress);
+router.put("/update-address/:id", addressController.updateAddressbyId);
+router.get("/get-address", addressController.getAllAddress);
+router.get("/get-address/:id", addressController.getAddressById);
+router.delete("/delete-address/:id", addressController.deleteAddressById);
+router.all("/dall-address", addressController.deleteAllAddresses);
+module.exports = router;
